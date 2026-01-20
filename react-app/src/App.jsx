@@ -5,11 +5,11 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [cats, setCats] = useState([])
+  const [helloData, setHelloData] = useState([])
 
-  const handleGetCatsClick = async (e) => {
-    const gotCats = await fetch('/api/cats')
-    setCats(gotCats)
+  const handleGetHelloClick = async (e) => {
+    const gotData = await fetch('/api/hello')
+    setHelloData(gotData)
   }
 
   return (
@@ -33,11 +33,11 @@ function App() {
       </div>
       <h1>Cats Vercel Function</h1>
       <div className="card">
-        <button onClick={handleGetCatsClick}>
-          GET /api/cats
+        <button onClick={handleGetHelloClick}>
+          GET /api/hello
         </button>
         <p>
-          {JSON.stringify(cats)}
+          {JSON.stringify(helloData)}
         </p>
       </div>      
       <p className="read-the-docs">
