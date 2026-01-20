@@ -8,7 +8,8 @@ function App() {
   const [helloData, setHelloData] = useState([])
 
   const handleGetHelloClick = async (e) => {
-    const gotData = await fetch('/api/hello')
+    const gotDataJson = await fetch('/api/hello')
+    const gotData = await gotDataJson.json()
     console.log('gotData', gotData)
     setHelloData(gotData)
   }
