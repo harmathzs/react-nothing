@@ -9,6 +9,7 @@ function App() {
 
   const handleGetHelloClick = async (e) => {
     const gotData = await fetch('/api/hello')
+    console.log('gotData', gotData)
     setHelloData(gotData)
   }
 
