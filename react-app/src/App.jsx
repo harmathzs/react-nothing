@@ -30,6 +30,7 @@ function App() {
         const {latitude, longitude} = position.coords
         const gotDataJson = await fetch('https://nothing-backend.vercel.app/geolocation', {
           method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({latitude, longitude})
         })
         const gotData = await gotDataJson.json()
