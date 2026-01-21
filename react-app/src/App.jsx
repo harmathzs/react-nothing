@@ -29,6 +29,7 @@ function App() {
       navigator.geolocation.getCurrentPosition(async function success(position){
         const {latitude, longitude} = position.coords
         const gotDataJson = await fetch('https://nothing-backend.vercel.app/geolocation', {
+          method: 'POST',
           body: JSON.stringify({latitude, longitude})
         })
         const gotData = await gotDataJson.json()
