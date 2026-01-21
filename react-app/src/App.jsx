@@ -6,6 +6,8 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
   const [helloData, setHelloData] = useState([])
+  const [yeey, setYeey] = useState('aaa')
+  const [addresses, setAddresses] = useState({})
 
   const handleGetHelloClick = async (e) => {
     const gotDataJson = await fetch('/api/hello')
@@ -13,6 +15,30 @@ function App() {
     console.log('gotData', gotData)
     setHelloData(gotData)
   }
+
+  const handleYeeyClick = async (e) => {
+    const gotDataJson = await fetch('https://nothing-backend.vercel.app/express')
+    const gotData = await gotDataJson.json()
+    console.log('gotData', gotData)
+    setYeey(gotData)
+  }  
+
+  
+  const handleLatLongClick = async (e) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async function success(position){
+        const {latitude, longitude} = position.coords
+        const gotDataJson = await fetch('https://nothing-backend.vercel.app/geolocation', {
+          body: JSON.stringify({latitude, longitude})
+        })
+        const gotData = await gotDataJson.json()
+        console.log('gotData', gotData)
+        setAddresses(gotData)
+      }, console.warn)
+    }
+
+
+  }   
 
   return (
     <>
@@ -33,7 +59,7 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
-      <h1>Cats Vercel Function</h1>
+      <h1>Vercel Function</h1>
       <div className="card">
         <button onClick={handleGetHelloClick}>
           GET /api/hello
@@ -41,7 +67,28 @@ function App() {
         <p>
           {JSON.stringify(helloData)}
         </p>
-      </div>      
+      </div>   
+
+      <h1>Express yeey</h1>
+      <div className="card">
+        <button onClick={handleYeeyClick}>
+          GET Yeey
+        </button>
+        <p>
+          {JSON.stringify(yeey)}
+        </p>
+      </div> 
+
+      <h1>LatLong address</h1>
+      <div className="card">
+        <button onClick={handleLatLongClick}>
+          Post my geolocation
+        </button>
+        <p>
+          {JSON.stringify(addresses)}
+        </p>
+      </div>             
+
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
